@@ -7,26 +7,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "controlFile.h"
 //void createBoards(int board_Size, struct slot **upLeft, struct slot **upRight, struct slot **downRight, struct slot **downLeft);
-
-enum slot_level {Hill, City, Ground};
-struct slot{
-	int row ,column;
-	struct slot *up;
-	struct slot *right;
-	struct slot *down;
-	struct slot *left;
-
-	enum slot_level slotType;
-	/*
-	 *
-	 * Add Levels
-	 */
-};
 
 void createBoards(int board_Size, struct slot **upLeft, struct slot **upRight, struct slot **downRight, struct slot **downLeft){
 	//Here we create the boards.
-	struct slot **board = malloc(board_Size * sizeof(struct slot*));
+	board = malloc(board_Size * sizeof(struct slot*));
 
 	srand(time(NULL));
 	for(int i=0; i<board_Size; i++)
@@ -34,6 +20,7 @@ void createBoards(int board_Size, struct slot **upLeft, struct slot **upRight, s
 		board[i] = malloc(board_Size * sizeof(struct slot));
 		for(int k=0; k<board_Size; k++)
 		{
+			board[i][k].player_Identifier = -1;
 			board[i][k].row = i;
 			board[i][k].column =k;
 			int randomPlace = 5;
@@ -112,20 +99,4 @@ void createBoards(int board_Size, struct slot **upLeft, struct slot **upRight, s
 			printf("\n");
 		}
 }
-
-
-int main(void)
-{
-	struct slot *upLeft;
-	struct slot *upRight;
-	struct slot *downRight;
-	struct slot *downLeft;
-
-	int board_Size = 7;
-	//here the slots are created along with the slot type, i.e. Hill, City Ground.
-	createBoards(board_Size ,&upLeft, &upRight, &downLeft, &downRight);
-	return 0;
-}
-
-
 
