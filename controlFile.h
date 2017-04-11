@@ -18,22 +18,24 @@ struct slot{
 	struct slot *right;
 	struct slot *down;
 	struct slot *left;
-
-	int number_Of_Players;
 	int player_Identifier;
 	enum slot_level slotType;
-	/*
-	 *
-	 * Add Levels
-	 */
 };
 struct slot **board;
+enum player_Type {Ogre, Human, Wizard, Elf};
 struct players{
+	char name_one[20];
+	char name_two[20];
+	int health;
 	int player_Identifier;
+	enum player_Type type;
+	int dexterity, luck, magic_skills, strength, smartness;
+
 	struct slot *place;
 };
-struct players cases[5];
-
+struct players cases[6];
+int player_number;
+void createCharacters();
 void createBoards(int board_Size, struct slot **upLeft, struct slot **upRight, struct slot **downRight, struct slot **downLeft);
 void near_Attack(struct players * attacker);
 int check_More_Than_One(int player_identifier);

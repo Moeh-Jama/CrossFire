@@ -11,20 +11,22 @@
 void printBoard(){
 	//Printing out Board Contents.
 	int board_Size=7;
-	printf("\n\n");
+	printf("\n--------------------------------------------------------\n");
 	for(int i=0; i<board_Size; i++)
 	{
 		for(int k=0; k<board_Size; k++)
 		{
 			if(board[i][k].player_Identifier==-1){
-				printf("(%d, %d)\t", board[i][k].row, board[i][k].column);
+				printf("|%d, %d|\t", board[i][k].row, board[i][k].column);
 			}
 			else{
-				printf("(%d,i)\t", board[i][k].player_Identifier);
+				printf("|%s,i|\t", cases[board[i][k].player_Identifier].name_one);
 			}
 		}
 		printf("\n");
 	}
+	printf("--------------------------------------------------------\n");
+	
 }
 int main(void)
 {
@@ -40,15 +42,12 @@ int main(void)
 
 
 	//Temporary Character Creation.
-	for(int i=0; i<5; i++)
-	{
-		cases[i].player_Identifier =20+ i;
-	}
+	createCharacters();
 	//here the slots are created along with the slot type, i.e. Hill, City Ground.
 	createBoards(board_Size ,&upLeft, &upRight, &downLeft, &downRight);
-
+	print_players();
 	//Placing players into Boards.
-	for(int i=0; i<5; i++){
+	for(int i=0; i<player_number; i++){
 		int random_row, random_column;
 		//Randomly placing players in a slot, using rand() with the rows ad columns.
 		do{
@@ -63,18 +62,14 @@ int main(void)
 	printBoard();
 
 	//Looking for adjacent.
-	for(int i=0; i<5; i++)
+	for(int i=0; i<player_number; i++)
 	{
-		//near_Attack(&cases[i])
-		//We have not made it possinle yet so more than 1 player may be in a slot!
-		printf("(%d),[%d] \n",cases[i].place->up->row,cases[i].place->up->column);
-		distantAttack(cases[i].place->up);
-		//check the lookOperations for the code for the near attack!.
+		printf("Current Player: (%d,%d)\n",cases[i].place->row,cases[i].place->column);
+		near_Attack(&cases[i]);
+		//distantAttack(cases[i].place);
 	}
 	printBoard();
 
-
-	//Make player_Make_function
 
 	/*
 	 * runWhile(players_with_Health>1){

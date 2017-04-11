@@ -46,11 +46,11 @@ void check_adjecent_Slots(struct players * attacker){
 
 int distantAttack(struct slot * victim)
 {
-	//USe recursion in this case.
-	printf("{{{{%d}}}}\n", victim->row);
+	//Use recursion in this case.
+	printf("In Recursion: [%d, %d]\n", victim->row, victim->column);
 	if(victim->player_Identifier !=19)
 	{
-		printf("PLayer: (%d)\t", victim->player_Identifier);
+		printf("Player: %d\t", victim->player_Identifier);
 		printf("Found Player at (%d, %d)\n", victim->row, victim->column);
 		return victim->column;
 	}
@@ -69,11 +69,11 @@ int distantAttack(struct slot * victim)
 }
 
 
-/*void near_Attack(struct players * attacker)
+void near_Attack(struct players * attacker)
 {
 
 
-	printf("\n%d---(%d, %d)\t", attacker->place->player_Identifier, attacker->place->row, attacker->place->column);
+	//printf("\n%d---(%d, %d)\t", attacker->place->player_Identifier, attacker->place->row, attacker->place->column);
 	if(attacker->place->row!=0 && attacker->place->up->player_Identifier>19)
 	{
 		printf("%d found Over %d!\n", attacker->place->up->player_Identifier,attacker->player_Identifier );
@@ -97,9 +97,9 @@ int distantAttack(struct slot * victim)
 		What We Have At This Point: Location, Both Player Identifiers, and are able to
 		access both players attributes.
 
-		Perform attacking here, We already know the
+		Perform attacking here, We already know the*/
 
-}*/
+}
 
 
 /*void distant_Attack(int attacking, int attacked)

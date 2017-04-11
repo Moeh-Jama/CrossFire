@@ -86,17 +86,5 @@ void createBoards(int board_Size, struct slot **upLeft, struct slot **upRight, s
 	*upRight = &board[0][board_Size-1];
 	*downRight = &board[board_Size-1][board_Size-1];
 	*downLeft = &board[board_Size-1][0];
-
-		//Print the results
-	printf("\n");
-	for(int i=0; i<board_Size; i++)
-		{
-
-			for(int k=0; k<board_Size; k++)
-			{
-				printf("(%d, %d)\t", board[i][k].row, board[i][k].column);
-			}
-			printf("\n");
-		}
 }
 
