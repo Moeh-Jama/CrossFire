@@ -19,6 +19,7 @@ struct slot{
 	struct slot *down;
 	struct slot *left;
 
+	int number_Of_Players;
 	int player_Identifier;
 	enum slot_level slotType;
 	/*
@@ -27,3 +28,15 @@ struct slot{
 	 */
 };
 struct slot **board;
+struct players{
+	int player_Identifier;
+	struct slot *place;
+};
+struct players cases[5];
+
+void createBoards(int board_Size, struct slot **upLeft, struct slot **upRight, struct slot **downRight, struct slot **downLeft);
+void near_Attack(struct players * attacker);
+int check_More_Than_One(int player_identifier);
+void near_Attack(struct players * attacker);
+int distantAttack(struct slot * victim);
+//int check_adjecent_Slots(int player_identifer);

@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include "controlFile.h"
+int board_Size = 3;
 
 	/*
 		in order to check if a slot contains a player we first need the location of the slot and the player number
@@ -17,10 +18,12 @@
 	*/
 	
 	
-int check_More_Than_One(int player_identifier)
+/*int check_More_Than_One(int player_identifier)
 {
 	//This function will be called if
 	//quickly check if there is a player within the slot.
+
+
 
 	if(There_Is_another_player == 1)
 	{
@@ -30,104 +33,61 @@ int check_More_Than_One(int player_identifier)
 		return -1;		//if there is no player the we return -1.
 	}
 	
-}
-int check_adjecent_Slots(int player_identifer){
+}*/
+void check_adjecent_Slots(struct players * attacker){
 	//look for the current Slot using player_identifer.
 
 	//Then search for adjecent slots.
 
 	//if there is more than one user found, ask the user to choose. Use current_row & current_column
+	//printf("\n%d---(%d, %d)\t", attacker->)
 
-	int numberOfFoundPlayers=0;
-	int right=0; left=0; top=0; bottom=0;
-	if(board[current_row][current_column+1].player_identifier!=-1)
-	{
-		printf("Found a player on the Right!\n");
-		right=1;
-		numberOfFoundPlayers++;
-	}
-	if(board[current_row][current_column-1].player_identifier!=-1){
-		printf("Found a player on the Left!\n");
-		left=1;
-		numberOfFoundPlayers++;
-	}
-	if(board[current_row+1][current_column].player_identifier!=-1){
-		printf("Found a player on the Top!\n");
-		top=1;
-		numberOfFoundPlayers++;
-	}
-	if(board[current_row-1][current_column].player_identifier!=-1){
-		printf("Found a player on the Bottom!\n");
-		bottom=1;
-		numberOfFoundPlayers++;
-	}
-
-
-	if(numberOfFoundPlayers >1)
-	{
-		printf("Please choose which of the players to attack\n");
-		if(right>0)
-		{
-			printf("1.Right!\n");
-		}
-		if(left>0){
-			printf("2.Left!\n");
-		}
-		if(top>0){
-			printf("3.Top\n");
-		}
-		if(bottom>0){
-			printf("4.Bottom\n");
-		}
-		int attack_Choice;
-
-		scanf("%d", &attack_Choice);
-		if(attack_Choice==1 && right>0){
-			//Here We will allow user to pic that player identifers.
-			return board[current_row][current_column+1].player_identifier;
-		}
-		else if(attack_Choice==2 && left>0)
-		{
-			return board[current_row][current_column-1].player_identifier;
-		}
-		else if(attack_Choice==3 && top>0)
-		{
-			return board[current_row+1][current_column].player_identifier;
-		}
-		else if(attack_Choice==4 && bottom>0)
-		{
-			return board[current_row-1][current_column].player_identifier;
-		}
-		else{
-			printf("I'm Sorry but you cannot make that choice try again Please.\n");
-			int value = check_adjecent_Slots(player_identifer);
-			return value;
-		}
-	}
-	else{
-		return -1;
-	}
 }
-void near_Attack(int player_identifier, int other_player_identifer, struct slot*)
+
+int distantAttack(struct slot * victim)
 {
-	/*
-		for this function we would already have both the player identifiers.
-	*/
-
-	int slot_row, slot_column;
-	for(int i=0; i<board_Size; i++)
+	//USe recursion in this case.
+	printf("{{{{%d}}}}\n", victim->row);
+	if(victim->player_Identifier !=19)
 	{
-
-		for(int k=0; k<board_Size; k++)
+		printf("PLayer: (%d)\t", victim->player_Identifier);
+		printf("Found Player at (%d, %d)\n", victim->row, victim->column);
+		return victim->column;
+	}
+	else
+	{
+		if(victim->column<6)
 		{
-
-			if(player_identifier == board[i][k].player_identifier)
-			{
-
-				i=slot_row;
-				k=slot_column;
-			}
+			return distantAttack(victim->right);
 		}
+		else if(victim->column==6)
+		{
+			return distantAttack(victim->down->column=0);
+		}
+	}
+	return 0;
+}
+
+
+/*void near_Attack(struct players * attacker)
+{
+
+
+	printf("\n%d---(%d, %d)\t", attacker->place->player_Identifier, attacker->place->row, attacker->place->column);
+	if(attacker->place->row!=0 && attacker->place->up->player_Identifier>19)
+	{
+		printf("%d found Over %d!\n", attacker->place->up->player_Identifier,attacker->player_Identifier );
+	}
+	if(attacker->place->row!=6 && attacker->place->down->player_Identifier >19)
+	{
+		printf("%d found Under %d!\n", attacker->place->down->player_Identifier,attacker->player_Identifier );
+	}
+	if(attacker->place->column!=0 && attacker->place->left->player_Identifier >19)
+	{
+		printf("%d found to the left of %d!\n",attacker->place->left->player_Identifier,attacker->player_Identifier );
+	}
+	if(attacker->place->column!=6 && attacker->place->right->player_Identifier >19){
+		printf("%d found to the right of %d!\n", attacker->place->right->player_Identifier,attacker->player_Identifier );
 	}
 
 
@@ -137,12 +97,12 @@ void near_Attack(int player_identifier, int other_player_identifer, struct slot*
 		What We Have At This Point: Location, Both Player Identifiers, and are able to
 		access both players attributes.
 
-		Perform attacking here, We already know the 
-	*/
-}
+		Perform attacking here, We already know the
+
+}*/
 
 
-void distant_Attack(int attacking, int attacked)
+/*void distant_Attack(int attacking, int attacked)
 {
 	//Do a recursion function for near & distant Attacks.
 	//Then get the player to choose whome to attack.
@@ -152,7 +112,7 @@ void distant_Attack(int attacking, int attacked)
 void magic_Attack(int attacking, int attacked){
 	//for this search throughtout the players and find the living ones, then ask the player to
 	//choose whome to attack.
-}
+}*/
 
 
 
