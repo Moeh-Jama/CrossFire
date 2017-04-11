@@ -61,12 +61,25 @@ int main(void)
 	//Printing out 
 	printBoard();
 
+<<<<<<< HEAD
 	//Looking for adjacent.
 	for(int i=0; i<player_number; i++)
 	{
 		printf("Current Player: (%d,%d)\n",cases[i].place->row,cases[i].place->column);
 		near_Attack(&cases[i]);
 		//distantAttack(cases[i].place);
+=======
+	//Looking for distant players(TESTING).
+	for(int i=0; i<5; i++)
+	{
+		//near_Attack(&cases[i])
+		//We have not made it possinle yet so more than 1 player may be in a slot!
+		printf("(%d),[%d] \n",cases[i].place->up->row,cases[i].place->up->column);
+		//This code gets us every character within the BOARD. Here we are using Recursion to get back the positions of all players
+		//Including our own.	What I suggest is making a cut off when it gets back the results, i.e. if distance>1 &&<5 ==Ignore.
+		distantAttack(cases[i].place->up);
+		//check the lookOperations for the code for the near attack!.
+>>>>>>> origin/master
 	}
 	printBoard();
 
