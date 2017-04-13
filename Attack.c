@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "controlFile.h">
+//Change this to int type, adn this function will actually be used for the attacks.
 void Attack(int ID_Player)
 {
     // get the sum of the differences of the axis
