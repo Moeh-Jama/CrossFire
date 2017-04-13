@@ -5,27 +5,33 @@
 void player_type_function(int *t, int *d, int *l, int *m_s, int *st, int *sm, int *index);
 void createCharacters(){
 	srand(time(NULL));
-	printf("Enter the number of players in this game!\nNumber of Players: ");
+
+
+	printf("Enter the number of players.\nNumber of Players: ");
 	scanf("%d", &player_number);//number of players in the game.
+	player_number=6;
 	while(player_number<=1 || player_number>=7)
 	{
 		printf("\nThe number of players is either too high or low, remember between 2-6 players!\n");
 		printf("Enter the number of players in this game!\nNumber of Players: ");
 		scanf("%d", &player_number);
 	}
-
+	//printf("NamesL %s, %s", a[0], a[1]);
 	for(int i=0; i<player_number; i++)
 		{
-
+		//initialise temporary player details.
 			int t=0, d=0, sm=0, st=0, l=0, m_s=0;
-			printf("PLEASE ENTER DETAILS FOR PLAYER %d", i+1);
-			printf("\nEnter player[i] name: ");
+			printf("\nPLEASE ENTER DETAILS FOR PLAYER %d", i+1);
+			printf("\nEnter players First & Second name: ");
 			scanf("%s%s", cases[i].name_one, cases[i].name_two);
-			printf("\nEnter player type\n");
-			printf("choose \n1.Ogre\n2.Human\n3.Wizard\n4.Elf\n");
+
+			//strcpy(cases[i].name_one,character[i]);
+			//strcpy(cases[i].name_two, character[i+1]);
+			printf("\nChoose player type\n");
+			printf("1.Ogre\n2.Human\n3.Wizard\n4.Elf\n");
 			int choice;
 			scanf("%d", &choice);
-
+			//Player type choices created using enum.
 			switch(choice)
 			{
 			case 1:{
@@ -51,17 +57,16 @@ void createCharacters(){
 				exit(0);
 			}
 			}
-
-			//Create a method so I can get the data out of the player_type_function.
-			//Use pointers as in
-			player_type_function(&t, &d, &l, &m_s, &st, &sm, &i); //do operation in order of variables shown type-smartness!
+			//Player specifications are now sent to player_type_function to be created.
+			//Then assigned to players after returned.
+			player_type_function(&t, &d, &l, &m_s, &st, &sm, &i);
 			cases[i].dexterity =d;
 			cases[i].luck = l;
 			cases[i].magic_skills =m_s;
 			cases[i].strength = st;
 			cases[i].smartness= sm;
 			cases[i].health = 100;
-			cases[i].player_Identifier=i;
+			cases[i].player_Identifier=i+20;
 		}
 }
 
@@ -133,6 +138,7 @@ void player_type_function(int *t, int *d, int *l, int *m_s, int *st, int *sm, in
 }
 void player_type(int type)
 {
+	//This function is used to print out the player type, as we cannot print out enum, String.
 	if(type == Ogre)
 	{
 		printf( "Ogre");
@@ -155,9 +161,11 @@ void player_type(int type)
 }
 void print_players(){
 //Only prints details and general_Build characteristics of the player.
+	printf("Details of Players and their specifications\n");
 	for(int i=0; i<player_number; i++)
 	{
-		int count = cases[i].type;				//int count is used for the player_type(int) function, that we use to print the player type.
+		//count is used for the player_type(int) function, that we use to print the player type.
+		int count = cases[i].type;
 		printf("Player Name: %s %s\n", cases[i].name_one, cases[i].name_two);
 		printf("Player Type: ");
 		player_type(count);
@@ -167,7 +175,7 @@ void print_players(){
 		printf("Player Magic Skills: %d\n", cases[i].magic_skills);
 		printf("Player Strength: %d\n", cases[i].strength);
 		printf("Player Smartness: %d\n", cases[i].smartness);
-		printf("\n*********************************************************\n");
+		printf("*********************************************************\n");
 	}
 
 }

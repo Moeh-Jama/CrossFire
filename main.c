@@ -20,7 +20,7 @@ void printBoard(){
 				printf("|%d, %d|\t", board[i][k].row, board[i][k].column);
 			}
 			else{
-				printf("|%s,i|\t", cases[board[i][k].player_Identifier].name_one);
+				printf("|%s|\t", cases[board[i][k].player_Identifier-20].name_one);
 			}
 		}
 		printf("\n");
@@ -28,11 +28,19 @@ void printBoard(){
 	printf("--------------------------------------------------------\n");
 	
 }
+/*int getOptions(struct players *mover)
+{
+	if(mover->place-> != NULL)
+}*/
 int main(void)
 {
 	setbuf(stdout,NULL);
 	srand(time(NULL));
-	printf("The Main.c");
+	struct slot* currSlot = NULL;
+	struct slot *foundSlots;
+	bool explored[BOARD_SIZE][BOARD_SIZE];
+	int count =0;
+	printf("\tWelcome TO CrossFire\n");
 	struct slot *upLeft;
 	struct slot *upRight;
 	struct slot *downRight;
@@ -40,7 +48,7 @@ int main(void)
 
 	int board_Size = 7;
 
-
+	//char character[12] = "abcdefghijk";
 	//Temporary Character Creation.
 	createCharacters();
 	//here the slots are created along with the slot type, i.e. Hill, City Ground.
@@ -61,26 +69,124 @@ int main(void)
 	//Printing out 
 	printBoard();
 
-<<<<<<< HEAD
 	//Looking for adjacent.
+	//near_Attack(&cases[i]);
+	//distantAttack(cases[i].place->right);
 	for(int i=0; i<player_number; i++)
 	{
 		printf("Current Player: (%d,%d)\n",cases[i].place->row,cases[i].place->column);
-		near_Attack(&cases[i]);
-		//distantAttack(cases[i].place);
-=======
-	//Looking for distant players(TESTING).
-	for(int i=0; i<5; i++)
-	{
-		//near_Attack(&cases[i])
-		//We have not made it possinle yet so more than 1 player may be in a slot!
-		printf("(%d),[%d] \n",cases[i].place->up->row,cases[i].place->up->column);
-		//This code gets us every character within the BOARD. Here we are using Recursion to get back the positions of all players
-		//Including our own.	What I suggest is making a cut off when it gets back the results, i.e. if distance>1 &&<5 ==Ignore.
-		distantAttack(cases[i].place->up);
-		//check the lookOperations for the code for the near attack!.
->>>>>>> origin/master
+
+		printf("Choose a move option:\n");
+		//Get Options of movements function.
+		int type;
+
+		if(cases[i].place==upLeft)
+		{
+			type = 0;
+		}
+		if(cases[i].place==downLeft)
+		{
+			type =3;
+		}
+		if(cases[i].place==upRight)
+		{
+			type=2;
+		}
+		if(cases[i].place==downRight)
+		{
+			type = 4;
+		}
+		if(cases[i].place->up==NULL)
+		{
+			type=5;
+		}
+
+		printf("1.Up\n2.Down\n3.Right\n4.Left\n");
+		int choice;
+		scanf("%d", &choice);
+
+		//if(choice=1 && (cases[i].place==upLeft || cases[i].place==upRight ||cases[i].place->up==NULL )
+
+		switch(choice)
+		{
+			case 1:{
+				//Moving UP.
+				int row_n, column_n;
+				row_n = cases[i].place->row;
+				column_n = cases[i].place->column;
+				printf("%s\n(%d, %d)\n",cases[i].name_one, cases[i].place->row, cases[i].place->column);
+				cases[i].place->player_Identifier=-1;
+				cases[i].place = board[row_n][column_n].up;
+				cases[i].place->player_Identifier=i+20;
+				printf("%s\n(%d, %d)\n",cases[i].name_one, cases[i].place->row, cases[i].place->column);
+				break;
+			}
+			case 2:{
+				//Moving Down.
+				int row_n, column_n;
+				row_n = cases[i].place->row;
+				column_n = cases[i].place->column;
+				printf("%s\n(%d, %d)\n",cases[i].name_one, cases[i].place->row, cases[i].place->column);
+				cases[i].place->player_Identifier=-1;
+				cases[i].place = board[row_n][column_n].down;
+				cases[i].place->player_Identifier=i+20;
+				printf("%s\n(%d, %d)\n",cases[i].name_one, cases[i].place->row, cases[i].place->column);
+				break;
+			}
+			case 3:{
+				//Move Right
+				int row_n, column_n;
+				row_n = cases[i].place->row;
+				column_n = cases[i].place->column;
+				printf("%s\n(%d, %d)\n",cases[i].name_one, cases[i].place->row, cases[i].place->column);
+				cases[i].place->player_Identifier=-1;
+				cases[i].place = board[row_n][column_n].right;
+				cases[i].place->player_Identifier=i+20;
+				printf("%s\n(%d, %d)\n",cases[i].name_one, cases[i].place->row, cases[i].place->column);
+				break;
+			}
+			case 4:{
+				//Move Left.
+				int row_n, column_n;
+				row_n = cases[i].place->row;
+				column_n = cases[i].place->column;
+				printf("%s\n(%d, %d)\n",cases[i].name_one, cases[i].place->row, cases[i].place->column);
+				printf("Next: (%d,%d)\n", board[row_n][column_n].left->row, board[row_n][column_n].left->column);
+				cases[i].place->player_Identifier=-1;
+				cases[i].place = board[row_n][column_n].left;
+				cases[i].place->player_Identifier=i+20;
+				printf("%s\n(%d, %d)\n",cases[i].name_one, cases[i].place->row, cases[i].place->column);
+				break;
+			}
+			default:{
+				printf("Error has occurred\n");
+				exit(0);
+			}
+		}
 	}
+
+
+	printBoard();
+	for(int i=0; i<BOARD_SIZE; i++){
+		for(int j=0; j<BOARD_SIZE;j++){
+			explored[i][j] = false;
+		}
+	}
+	//A method of getting the distance between two characters.
+	int result;
+	for(int i=0; i<6;i++)
+	{
+			//getDesiredElement(BOARD_SIZE, &cases[i].place->row,&cases[i].place->column);
+		for(int j=0;j<6;j++)
+		{
+			//Since we get the distance between two characters we can now filter the users beyond our scope. less than 2 and greater than 4.
+			result = getDistance(cases[i].place, cases[j].place);
+			printf("Between (%d,%d)-(%d,%d): RESULT: %d\n",cases[i].place->row,cases[i].place->column,cases[j].place->row,cases[j].place->column, result);
+		}
+
+
+	}
+
 	printBoard();
 
 

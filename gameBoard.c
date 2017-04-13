@@ -71,15 +71,23 @@ void createBoards(int board_Size, struct slot **upLeft, struct slot **upRight, s
 	//Top Left.
 	board[0][0].right = &board[0][1];
 	board[0][0].down = &board[1][0];
+	board[0][0].up =NULL;
+	board[0][0].left = NULL;
 	//Top Right.
 	board[0][board_Size-1].left = &board[0][board_Size-2];
 	board[0][board_Size-1].down = &board[1][board_Size-1];
+	board[0][board_Size-1].right=NULL;
+	board[0][board_Size-1].up = NULL;
 	//Down Right.
 	board[board_Size-1][board_Size-1].up = &board[board_Size-2][board_Size-1];
 	board[board_Size-1][board_Size-1].left = &board[board_Size-1][board_Size-2];
+	board[board_Size-1][board_Size-1].down = NULL;
+	board[board_Size-1][board_Size-1].right=NULL;
 	//Down Left.
 	board[board_Size-1][0].right = &board[board_Size-1][1];
 	board[board_Size-1][0].up = &board[board_Size-2][0];
+	board[board_Size-1][0].down = NULL;
+	board[board_Size-1][0].left = NULL;
 
 	//All Four Corner of the board are taken by the struct slots **Values.
 	*upLeft = &board[0][0];
