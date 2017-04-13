@@ -75,6 +75,7 @@ int main(void)
 	for(int i=0; i<player_number; i++)
 	{
 		printf("Current Player: (%d,%d)\n",cases[i].place->row,cases[i].place->column);
+<<<<<<< HEAD
 
 		printf("Choose a move option:\n");
 		//Get Options of movements function.
@@ -185,6 +186,10 @@ int main(void)
 		}
 
 
+=======
+		near_Attack(&cases[i]);
+		//distantAttack(cases[i].place);
+>>>>>>> origin/master
 	}
 
 	printBoard();
