@@ -33,7 +33,7 @@ switch (nextSlot[ongoing_contestant].type)
 		}
 			break;
 		
-		// There is no change is the ground is level
+		// There is no change if the ground is level
 		
 		default:
 			break;
