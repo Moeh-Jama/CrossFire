@@ -67,7 +67,6 @@ void movement(struct players * current_Player){
 		printf("1.Up\n2.Down\n3.Right\n4.Left\nEnter: ");
 		scanf("%d", &choice);
 	}
-	//if(choice=1 && (cases[i].place==upLeft || cases[i].place==upRight ||cases[i].place->up==NULL )
 	switch(choice)
 	{
 	case 1:{
@@ -143,7 +142,6 @@ int main(void)
 	players_With_Health=player_number;
 	int round=0;
 	while(players_With_Health>1){
-		//round=0;
 		printBoard();
 		print_players();
 		printf("**Current Round %d **\n", ++round);
@@ -151,11 +149,8 @@ int main(void)
 		{
 			//Make Sure that no dead player gets to continue in the game.
 			if(cases[i].health <= 0)
-			{//searching for player who is alive
-				while(cases[i].health<=0 && i<player_number-1)
-				{
-					i++;
-				}
+			{
+				continue;
 			}
 			printf("%s %s choose one of the following actions to perform\n1.Move slots\n2.An Attack\n3. Exit Game\nEnter Choice", cases[i].name_one, cases[i].name_two);
 			int gameChoice;
@@ -188,6 +183,7 @@ int main(void)
 			}
 		}
 		}
+		//continue;
 	}
 
 	for(int i=0; i<player_number;i++)
